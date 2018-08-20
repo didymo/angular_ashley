@@ -2,7 +2,7 @@
   question-show works!
 </p>
 
-<form ng-submit="processForm()" class="solve-form">
+<form (ng-submit)="onSubmit()" #questionForm="ngForm">
   {{type}}
   <table>
     <tr>
@@ -22,6 +22,8 @@
   </table>
   <div class="text-center">
     <button type="submit">submit</button>
-    
+    <button type="button" class="btn btn-default" (click)="processForm(); questionFormForm.reset()">New Questions</button>
+
+
   </div>
 </form>

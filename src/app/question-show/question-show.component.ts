@@ -29,14 +29,15 @@ export class QuestionShowComponent implements OnInit {
 
   private assignResults(results) {
     this.questions = results;
-    console.log(this.questions);
+    // console.log(this.questions);
   }
 
   protected changeRadioButton(value, questionId) {
     console.log(value);
-    console.log(questionId);
+    // console.log(questionId);
   }
   protected processForm() {
+    alert('got the form info');
     console.log('test');
     event.preventDefault();
   }

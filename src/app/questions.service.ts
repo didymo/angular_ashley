@@ -71,11 +71,11 @@ export class QuestionsService {
     CategoryQuestions.questionText = results[1];*/
 
 
-    console.log(results);
-    console.log('===========');
-    console.log(results[0]);
-    console.log(results[1]);
-    console.log('===========');
+    // console.log(results);
+    // console.log('===========');
+    // console.log(results[0]);
+    // console.log(results[1]);
+    // console.log('===========');
 
     return categoryQuestions;
   }
