@@ -14,7 +14,14 @@ export class QuestionShowComponent implements OnInit {
     {id: 1, name: 'Yes'},
     {id: 2, name: 'No'}
   ];
+  // FIXME this is a temporary declaration for an example that does not work correctly.
+  protected radioButtons: any[] = [
+    {},
+  ];
   type: number;
+  //TODO This is a temporary variable used to demonstrate the [disabled] tag on the submit button. Please remove when able.
+  myNum: number;
+
   constructor(
 
     private questionService: QuestionsService,
@@ -30,6 +37,13 @@ export class QuestionShowComponent implements OnInit {
   private assignResults(results) {
     this.questions = results;
     // console.log(this.questions);
+  }
+
+  protected onSubmit(value) {
+  alert('in onsubmit');
+  console.log(value);
+  console.log('test');
+  event.preventDefault();
   }
 
   protected changeRadioButton(value, questionId) {

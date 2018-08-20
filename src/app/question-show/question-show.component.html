@@ -2,8 +2,7 @@
   question-show works!
 </p>
 
-<form (ng-submit)="onSubmit()" #questionForm="ngForm">
-  {{type}}
+<form (ngSubmit)="onSubmit(questionShow.form)" #questionShow="ngForm">
   <table>
     <tr>
       <td>
@@ -12,7 +11,9 @@
             <a>
               {{question.id}}{{question.questionText}}
               <label *ngFor="let t of typeList">
-                <input type="radio" name="{{question.id}}" (change)="changeRadioButton(t.id, question.id)" [checked]="type===t.id">{{t.name}}
+                <input type="radio" class="form-control" id="{{question.id}}"
+                       [(ngModel)]="radioButtons" name="{{question.id}}">
+                {{t.name}}
               </label>
             </a>
           </li>
@@ -21,9 +22,8 @@
     </tr>
   </table>
   <div class="text-center">
-    <button type="submit">submit</button>
-    <button type="button" class="btn btn-default" (click)="processForm(); questionFormForm.reset()">New Questions</button>
-
-
+    <!--Temporary html form element to demonstrate the [disabled] attribute on submit.-->
+    <input type="number" required min="4" max="6" [(ngModel)]="myNum" #number="ngModel" name="number">
+    <input type="submit" [disabled]="!questionShow.form.valid">
   </div>
 </form>
