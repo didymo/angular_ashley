@@ -10,6 +10,7 @@ import {CategoryQuestion} from '../question';
 })
 export class QuestionShowComponent implements OnInit {
   protected questions: CategoryQuestion[];
+  protected postBody = {};
   typeList: any[] = [
     {id: 1, name: 'Yes'},
     {id: 2, name: 'No'}
@@ -43,7 +44,10 @@ export class QuestionShowComponent implements OnInit {
   protected onSubmit(value) {
     console.log('before');
     // alert('in onsubmit');
-    console.log(value);
+    for (const entry of this.questions) {
+      console.log(entry);
+    }
+    console.log(value.value['q_1']);
     console.log('test');
     event.preventDefault();
   }

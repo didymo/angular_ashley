@@ -47,7 +47,7 @@ export class QuestionsService {
   //private mapToCategoryQuestionsArray(response): CategoryQuestions[] {
   private mapToCategoryQuestionsArray(response): CategoryQuestion[] {
     console.log('private mapToCategoryQuestionsArray');
-    console.log(response);
+    // console.log(response);
     // return response.map(result => this.mapToCategoryQuestions(result));
     return response.map(result => this.mapToCategoryQuestions(result));
   }
@@ -65,18 +65,6 @@ export class QuestionsService {
     categoryQuestions.id = Object.keys(results).pop();
     categoryQuestions.questionText = (<string>Object.values(results).pop());
     categoryQuestions.result = '';
-
- /* private mapToCategoryQuestion(results): CategoryQuestion {
-    const CategoryQuestions = new CategoryQuestion();
-    CategoryQuestions.id = results[0];
-    CategoryQuestions.questionText = results[1];*/
-
-
-    // console.log(results);
-    // console.log('===========');
-    // console.log(results[0]);
-    // console.log(results[1]);
-    // console.log('===========');
 
     return categoryQuestions;
   }
