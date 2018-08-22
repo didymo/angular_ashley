@@ -64,6 +64,7 @@ export class QuestionsService {
     const categoryQuestions = new CategoryQuestion();
     categoryQuestions.id = Object.keys(results).pop();
     categoryQuestions.questionText = (<string>Object.values(results).pop());
+    categoryQuestions.result = '';
 
  /* private mapToCategoryQuestion(results): CategoryQuestion {
     const CategoryQuestions = new CategoryQuestion();

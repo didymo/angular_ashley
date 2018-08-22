@@ -7,12 +7,13 @@
     <tr>
       <td>
         <ul class="question">
-          <li *ngFor="let question of questions">
+          <li *ngFor="let question of questions; let i = index">
             <a>
               {{question.id}}{{question.questionText}}
-              <label *ngFor="let t of typeList">
-                <input type="radio" class="form-control" id="{{question.id}}"
-                       [(ngModel)]="radioButtons" name="{{question.id}}">
+              <label *ngFor="let t of typeList; let j = index">
+                <input type="radio" class="form-control"
+                       id="{{question.id}}" [(ngModel)]="questions[i].result"
+                       name="{{question.id}}" value="{{j}}">
                 {{t.name}}
               </label>
             </a>

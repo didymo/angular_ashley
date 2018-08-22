@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { QuestionsService } from '../questions.service';
-import { CategoryQuestion } from '../question';
+import {Component, OnInit} from '@angular/core';
+import {QuestionsService} from '../questions.service';
+import {CategoryQuestion} from '../question';
 
 // @ts-ignore
 @Component({
@@ -9,7 +9,7 @@ import { CategoryQuestion } from '../question';
   styleUrls: ['./question-show.component.css']
 })
 export class QuestionShowComponent implements OnInit {
-  private questions: CategoryQuestion[];
+  protected questions: CategoryQuestion[];
   typeList: any[] = [
     {id: 1, name: 'Yes'},
     {id: 2, name: 'No'}
@@ -19,14 +19,16 @@ export class QuestionShowComponent implements OnInit {
     {},
   ];
   type: number;
-  //TODO This is a temporary variable used to demonstrate the [disabled] tag on the submit button. Please remove when able.
+  // TODO This is a temporary variable used to demonstrate the [disabled] tag on the submit button. Please remove when able.
   myNum: number;
 
   constructor(
-
     private questionService: QuestionsService,
-  ) {}
+  ) {
+  }
+
   ngOnInit(): void {
+    this.radioButtons = [0];
     this.getQuestion();
   }
 
@@ -36,23 +38,24 @@ export class QuestionShowComponent implements OnInit {
 
   private assignResults(results) {
     this.questions = results;
-    // console.log(this.questions);
   }
 
   protected onSubmit(value) {
-  alert('in onsubmit');
-  console.log(value);
-  console.log('test');
-  event.preventDefault();
+    console.log('before');
+    // alert('in onsubmit');
+    console.log(value);
+    console.log('test');
+    event.preventDefault();
   }
 
   protected changeRadioButton(value, questionId) {
     console.log(value);
     // console.log(questionId);
   }
+
   protected processForm() {
     alert('got the form info');
     console.log('test');
     event.preventDefault();
   }
-  }
+}
