@@ -37,6 +37,15 @@ export class QuestionShowComponent implements OnInit {
     this.questionService.getQuestion().subscribe((results) => this.assignResults(results));
   }
 
+  postAnswers(): void {
+    this.questionService.postAnswers().subscribe();
+
+    this.heroService.addHero({ name } as Hero)
+      .subscribe(hero => {
+        this.heroes.push(hero);
+      });
+  }
+
   private assignResults(results) {
     this.questions = results;
   }

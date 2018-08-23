@@ -11,10 +11,26 @@ import {forEach} from '@angular/router/src/utils/collection';
 
 export class QuestionsService {
   private api = 'http://bluemaxstudios.com/questionnaire/questions?_format=json';
+  private postapi =  'http://bluemaxstudios.com/questionnaire/submit?_format=json';
+
 
   constructor(private http: HttpClient) {
   }
 
+  postAnswers() {
+    const headers = {
+      'headers': new HttpHeaders({
+        'content-type': 'application/json',
+        'Authorization': 'Basic ZnJvbnRlbmQ6cmVzdDEyMw=='
+      })
+    };
+  const body = '{"q_1":{"Will it impact a major road(s)?":false},"q_2":{"Will it disrupt the non-event community over a wide area?":false},"q_3":{"Will your event impact traffic over a wide area? (trains, buses, etc.)":false},"q_4":{"Will it impact local traffic and roads?":false},"q_5":{"Will it disrupt the non-event community over a local area?":false},"q_6":{"Will your event impact local transport systems? (Local buses and routes)":false},"q_7":{"Will it disrupt the non-event community in the immediate area only?":false},"q_8":{"Is it a minor event under Police supervision?":false}}';
+  console.log(body);
+    // this.http.get(this.api, headers).subscribe((questions) => console.log(questions));
+    // return null;
+
+  this.http.post( this.api, body, headers ).subscribe((response) => console.log(response));
+  }
 
  // getQuestion(): Observable<CategoryQuestions[]> {
   getQuestion(): Observable<CategoryQuestion[]> {
