@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionsService} from '../questions.service';
 import {CategoryQuestion} from '../question';
+import {TrafficPlanCategory} from '../traffic-plan-category';
 
 // @ts-ignore
 @Component({
@@ -9,8 +10,9 @@ import {CategoryQuestion} from '../question';
   styleUrls: ['./question-show.component.css']
 })
 export class QuestionShowComponent implements OnInit {
-  protected questions: CategoryQuestion[];
-  protected postBody = {};
+  public questions: CategoryQuestion[];
+  public categoryInformation: TrafficPlanCategory;
+  public postBody = {};
   typeList: any[] = [
     {id: 1, name: 'Yes'},
     {id: 2, name: 'No'}
@@ -38,25 +40,27 @@ export class QuestionShowComponent implements OnInit {
   }
 
   postAnswers(): void {
-    this.questionService.postAnswers().subscribe();
-
-    this.heroService.addHero({ name } as Hero)
-      .subscribe(hero => {
-        this.heroes.push(hero);
-      });
+    this.questionService.postAnswers().subscribe((results) => this.assignCategory(results));
+    console.log(this.categoryInformation);
   }
 
   private assignResults(results) {
     this.questions = results;
   }
 
-  protected onSubmit(value) {
+  private assignCategory(results) {
+    this.categoryInformation = results;
+  }
+
+  public onSubmit(value) {
     console.log('before');
     // alert('in onsubmit');
-    for (const entry of this.questions) {
-      console.log(entry);
-    }
-    console.log(value.value['q_1']);
+    // for (const entry of this.questions) {
+    //   console.log(entry);
+    // }
+    this.questionService.postAnswers().subscribe();
+
+    // console.log(value.value['q_1']);
     console.log('test');
     event.preventDefault();
   }

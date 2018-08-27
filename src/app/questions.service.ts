@@ -5,6 +5,8 @@ import {Observable} from 'rxjs';
 import {CategoryQuestion} from './question';
 import {map} from 'rxjs/operators';
 import {forEach} from '@angular/router/src/utils/collection';
+import {TrafficPlanCategory} from './traffic-plan-category';
+import {parseHttpResponse} from 'selenium-webdriver/http';
 
 
 @Injectable({providedIn: 'root'})
@@ -17,7 +19,7 @@ export class QuestionsService {
   constructor(private http: HttpClient) {
   }
 
-  postAnswers() {
+  postAnswers(): Observable<TrafficPlanCategory> {
     const headers = {
       'headers': new HttpHeaders({
         'content-type': 'application/json',
@@ -25,11 +27,21 @@ export class QuestionsService {
       })
     };
   const body = '{"q_1":{"Will it impact a major road(s)?":false},"q_2":{"Will it disrupt the non-event community over a wide area?":false},"q_3":{"Will your event impact traffic over a wide area? (trains, buses, etc.)":false},"q_4":{"Will it impact local traffic and roads?":false},"q_5":{"Will it disrupt the non-event community over a local area?":false},"q_6":{"Will your event impact local transport systems? (Local buses and routes)":false},"q_7":{"Will it disrupt the non-event community in the immediate area only?":false},"q_8":{"Is it a minor event under Police supervision?":false}}';
-  console.log(body);
+  console.log('back from the server');
     // this.http.get(this.api, headers).subscribe((questions) => console.log(questions));
     // return null;
 
-  this.http.post( this.api, body, headers ).subscribe((response) => console.log(response));
+    return this.http
+      .post(this.postapi, body, headers)
+      .pipe(
+        map( response => this.mapCategory(response))
+      );
+  }
+
+  private mapCategory(response): TrafficPlanCategory {
+    const trafficCategory = new TrafficPlanCategory();
+    trafficCategory.body = response;
+    return trafficCategory;
   }
 
  // getQuestion(): Observable<CategoryQuestions[]> {
@@ -46,7 +58,7 @@ export class QuestionsService {
 
     return this.http
      // .get<CategoryQuestions[]>(this.api, headers)
-      .get<CategoryQuestion[]>(this.api, headers)
+      .get(this.api, headers)
       .pipe(
         map(response => this.mapToCategoryQuestionsArray(response),
           console.log('inside pipe')
@@ -60,7 +72,6 @@ export class QuestionsService {
    * @param response
    *  A tab view list that has been mapped to the CategoryQuestions object.
    */
-  //private mapToCategoryQuestionsArray(response): CategoryQuestions[] {
   private mapToCategoryQuestionsArray(response): CategoryQuestion[] {
     console.log('private mapToCategoryQuestionsArray');
     // console.log(response);
