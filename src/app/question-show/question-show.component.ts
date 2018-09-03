@@ -88,14 +88,16 @@ export class QuestionShowComponent implements OnInit {
         first = 1;
       }
       this.postBody = `${this.postBody
-      + JSON.stringify(entry.id)}:{${JSON.stringify(entry.questionText)}:${ourBoolean}`;
+      + JSON.stringify(entry.id)}:{${JSON.stringify(entry.questionText)}:${ourBoolean}}`;
+
+
       // console.log(JSON.stringify(entry));
       // console.log(JSON.stringify(entry.id));
       // console.log(JSON.stringify(entry.questionText));
       // console.log(JSON.stringify(entry.id));
       // console.log(JSON.stringify(entry.questionText));
       // console.log(JSON.stringify(entry.result));
-      this.postBody = this.postBody + '}';
+      // this.postBody = this.postBody + '}';
     }
     this.postBody = this.postBody + '}';
     console.log(this.postBody);
