@@ -64,6 +64,11 @@ export class QuestionShowComponent implements OnInit {
     event.preventDefault();
   }
 
+  /**
+   * When the POST function POSTs to the back end the body must be formatted
+   * in a particular way. This function builds the return body.
+   * @param value
+   */
   private makePOSTJsonStringBody (value) {
     /**
      * The first return line does not have a comma preceding.
