@@ -12,7 +12,7 @@ import {TrafficPlanCategory} from '../traffic-plan-category';
 export class QuestionShowComponent implements OnInit {
   public questions: CategoryQuestion[];
   public categoryInformation: TrafficPlanCategory;
-  public postBody = {};
+  public postBody: string;
   typeList: any[] = [
     {id: 1, name: 'Yes'},
     {id: 2, name: 'No'}
@@ -55,14 +55,50 @@ export class QuestionShowComponent implements OnInit {
   public onSubmit(value) {
     console.log('before');
     // alert('in onsubmit');
-    // for (const entry of this.questions) {
-    //   console.log(entry);
-    // }
+    this.makePOSTJsonStringBody(value);
+
     this.questionService.postAnswers().subscribe();
 
     // console.log(value.value['q_1']);
     console.log('test');
     event.preventDefault();
+  }
+
+  private makePOSTJsonStringBody (value) {
+    /**
+     * The first return line does not have a comma preceding.
+     * This variable tracks if this is the end of the first line
+     */
+    let first = 0;
+    /**
+     * The question return 0's and 1's these need to be mapped to false and true
+     */
+    let ourBoolean = 'FALSE';
+
+    this.postBody = '{';
+    for (const entry of this.questions) {
+      if (entry.result === '0') {
+        ourBoolean = 'false';
+      } else if (entry.result === '1') {
+        ourBoolean = 'true';
+      }
+      if (first) {
+        this.postBody = this.postBody + ',';
+      } else {
+        first = 1;
+      }
+      this.postBody = `${this.postBody
+      + JSON.stringify(entry.id)}:{${JSON.stringify(entry.questionText)}:${ourBoolean}`;
+      // console.log(JSON.stringify(entry));
+      // console.log(JSON.stringify(entry.id));
+      // console.log(JSON.stringify(entry.questionText));
+      // console.log(JSON.stringify(entry.id));
+      // console.log(JSON.stringify(entry.questionText));
+      // console.log(JSON.stringify(entry.result));
+      this.postBody = this.postBody + '}';
+    }
+    this.postBody = this.postBody + '}';
+    console.log(this.postBody);
   }
 
   protected changeRadioButton(value, questionId) {
