@@ -19,7 +19,7 @@ export class QuestionsService {
   constructor(private http: HttpClient) {
   }
 
-  postAnswers(): Observable<TrafficPlanCategory> {
+  postAnswers(myBody): Observable<TrafficPlanCategory> {
     const headers = {
       'headers': new HttpHeaders({
         'content-type': 'application/json',
@@ -27,12 +27,13 @@ export class QuestionsService {
       })
     };
   const body = '{"q_1":{"Will it impact a major road(s)?":false},"q_2":{"Will it disrupt the non-event community over a wide area?":false},"q_3":{"Will your event impact traffic over a wide area? (trains, buses, etc.)":false},"q_4":{"Will it impact local traffic and roads?":false},"q_5":{"Will it disrupt the non-event community over a local area?":false},"q_6":{"Will your event impact local transport systems? (Local buses and routes)":false},"q_7":{"Will it disrupt the non-event community in the immediate area only?":false},"q_8":{"Is it a minor event under Police supervision?":false}}';
+  console.log(myBody);
   console.log('back from the server');
     // this.http.get(this.api, headers).subscribe((questions) => console.log(questions));
     // return null;
 
     return this.http
-      .post(this.postapi, body, headers)
+      .post(this.postapi, myBody, headers)
       .pipe(
         map( response => this.mapCategory(response))
       );

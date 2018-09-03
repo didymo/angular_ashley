@@ -39,8 +39,8 @@ export class QuestionShowComponent implements OnInit {
     this.questionService.getQuestion().subscribe((results) => this.assignResults(results));
   }
 
-  postAnswers(): void {
-    this.questionService.postAnswers().subscribe((results) => this.assignCategory(results));
+  postAnswers(myBody): void {
+    this.questionService.postAnswers(myBody).subscribe((results) => this.assignCategory(results));
     console.log(this.categoryInformation);
   }
 
@@ -57,7 +57,7 @@ export class QuestionShowComponent implements OnInit {
     // alert('in onsubmit');
     this.makePOSTJsonStringBody(value);
 
-    this.questionService.postAnswers().subscribe();
+    this.questionService.postAnswers(this.postBody).subscribe();
 
     // console.log(value.value['q_1']);
     console.log('test');
@@ -105,7 +105,7 @@ export class QuestionShowComponent implements OnInit {
       // this.postBody = this.postBody + '}';
     }
     this.postBody = this.postBody + '}';
-    console.log(this.postBody);
+    // console.log(this.postBody);
   }
 
   protected changeRadioButton(value, questionId) {
