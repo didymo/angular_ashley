@@ -57,7 +57,9 @@ export class QuestionShowComponent implements OnInit {
     // alert('in onsubmit');
     this.makePOSTJsonStringBody(value);
 
-    this.questionService.postAnswers(this.postBody).subscribe();
+    this.questionService.postAnswers(this.postBody).subscribe(
+      (response) => {console.log('i am returned'); console.log(response); }
+    );
 
     // console.log(value.value['q_1']);
     console.log('test');
