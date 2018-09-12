@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { QuestionShowComponent } from './question-show/question-show.component';
 import { QuestionGetComponent } from './question-get/question-get.component';
 import {FormsModule} from '@angular/forms';
+import {AppData} from './app-data';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,12 @@ import {FormsModule} from '@angular/forms';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [AppData,
+    {
+      provide: AppData,
+      useValue: window['APP_DATA']
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
