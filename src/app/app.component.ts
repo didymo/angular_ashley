@@ -11,6 +11,6 @@ export class AppComponent {
 
   constructor(appData: AppData) {
     console.log('Inside the AppComponent Constructor');
-    console.log('AppComponent - ', appData);
+    console.log('AppComponent - ', appData.jwtkey);
   }
 }
