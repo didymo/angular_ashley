@@ -6,6 +6,7 @@ import { QuestionShowComponent } from './question-show/question-show.component';
 import { QuestionGetComponent } from './question-get/question-get.component';
 import {FormsModule} from '@angular/forms';
 import {AppData} from './app-data';
+import {windowFactory} from './window-factory';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import {AppData} from './app-data';
   providers: [AppData,
     {
       provide: AppData,
-      useValue: window['APP_DATA']
+      useFactory: windowFactory
     }
   ],
   bootstrap: [AppComponent]
