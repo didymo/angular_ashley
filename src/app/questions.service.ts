@@ -7,26 +7,37 @@ import {map} from 'rxjs/operators';
 import {forEach} from '@angular/router/src/utils/collection';
 import {TrafficPlanCategory} from './traffic-plan-category';
 import {parseHttpResponse} from 'selenium-webdriver/http';
+import {AppData} from './app-data';
 
 
 @Injectable({providedIn: 'root'})
 
 export class QuestionsService {
-  private api = 'http://bluemaxstudios.com/questionnaire/questions?_format=json';
-  private postapi =  'http://bluemaxstudios.com/questionnaire/submit?_format=json';
+  private api = 'http://local.serviceangular.com.au/questionnaire/questions?_format=json';
+  private postapi =  'http://local.serviceangular.com.au/questionnaire/submit?_format=json';
+  private csrfToken: string;
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private appData: AppData) {
+    http.get('http://local.serviceangular.com.au/rest/session/token', {responseType: 'text'})
+      .subscribe((value) => {
+        console.log(value);
+        this.csrfToken = value;
+      });
   }
 
   postAnswers(myBody): Observable<TrafficPlanCategory> {
     const headers = {
       'headers': new HttpHeaders({
         'content-type': 'application/json',
-        'Authorization': 'Basic ZnJvbnRlbmQ6cmVzdDEyMw=='
+        'X-CSRF-Token': this.csrfToken,
+        //'Authorization': 'Basic ZnJvbnRlbmQ6cmVzdDEyMw=='
+        'Authorization': `Bearer ${this.appData.jwtkey}`
       })
     };
   // const body = '{"q_1":{"Will it impact a major road(s)?":false},"q_2":{"Will it disrupt the non-event community over a wide area?":false},"q_3":{"Will your event impact traffic over a wide area? (trains, buses, etc.)":false},"q_4":{"Will it impact local traffic and roads?":false},"q_5":{"Will it disrupt the non-event community over a local area?":false},"q_6":{"Will your event impact local transport systems? (Local buses and routes)":false},"q_7":{"Will it disrupt the non-event community in the immediate area only?":false},"q_8":{"Is it a minor event under Police supervision?":false}}';
+    console.log('in postAnswers');
+    console.log(this.appData.jwtkey);
   console.log(myBody);
   console.log('this junk is running in the code postAnswers ');
     // this.http.get(this.api, headers).subscribe((questions) => console.log(questions));
@@ -50,10 +61,13 @@ export class QuestionsService {
     const headers = {
       'headers': new HttpHeaders({
         'content-type': 'application/json',
-        'Authorization': 'Basic ZnJvbnRlbmQ6cmVzdDEyMw=='
+        //'Authorization': 'Basic ZnJvbnRlbmQ6cmVzdDEyMw=='
+        // 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MzgwMTM4NzAsImV4cCI6MTUzODAxNzQ3MCwiZHJ1cGFsIjp7InVpZCI6IjEifX0.e3lXoNdmyD136rHl8V46SiX9neNxETwuy1ubRUHatTE'
+        'Authorization': `Bearer ${this.appData.jwtkey}`
       })
     };
     console.log('in getQuestion');
+    console.log(this.appData.jwtkey);
     // this.http.get(this.api, headers).subscribe((questions) => console.log(questions));
     // return null;
 
